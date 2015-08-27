@@ -1,5 +1,7 @@
 module Language.Nautilus.Bytecode.Abstract where
 
+import Data.Int
+import Data.Word
 import Data.IORef
 
 {-
@@ -28,13 +30,18 @@ data Type =
 
 data Data =
       TextAddr BlockName
-    | DataAddr (IORef [Data])
+    -- | DataAddr (IORef [Data])
     | PtrOffset Offset
-    | Void
-    --deriving (Show)
+    | I8 Int8
+    | U8 Word8
+    | Void Type
+    deriving (Show)
 
 data Instr =
-      Call BlockName
+      Nop
+    | Halt --FIXME replace with Syscall
+    | Push Data
+    | Call BlockName
     | TailCall BlockName BlockName
     | ComputedCall
     | ComputedTailCall

@@ -13,3 +13,7 @@ class FromNBC a where
 
 instance FromNBC Word8 where
     fromNBC (U8 x) = x
+
+instance FromNBC Integer where
+    fromNBC (U8 x) = fromIntegral x
+    -- TODO the rest of the integer types

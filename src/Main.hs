@@ -20,7 +20,9 @@ main = do
 
 
 text = Map.fromList [
-      ("foo", [ Nop
+      ("foo", [ Push (U8 3)
+              , JumpRel EqZ 1
+              , Nop
               , Push (U8 0)
               , Halt
               ])

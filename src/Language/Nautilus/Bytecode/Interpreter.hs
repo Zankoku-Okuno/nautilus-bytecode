@@ -20,7 +20,18 @@ execute :: Instr -> NBCI ()
 execute Nop = return ()
 execute Halt = halt =<< fromNBC1 <$> popData 1
 execute (Push x) = pushData x
+execute (JumpRel condition offset) = do
+    doJump <- cond condition
+    when doJump $ moveIP offset
 execute it = error $ "unimplemented: " ++ show it
+
+cond :: Condition -> NBCI Bool
+cond Always = return True
+cond EqZ = do
+    [test] <- popData 1
+    return $ fromNBC test == (0 :: Integer)
+cond it = error $ "unimplemented condition: " ++ show it
+
 
 cycles :: NBCI ()
 cycles = fetch >>= execute >> cycles

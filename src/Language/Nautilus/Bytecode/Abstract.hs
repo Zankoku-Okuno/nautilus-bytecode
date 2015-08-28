@@ -41,6 +41,7 @@ data Instr =
       Nop
     | Halt --FIXME replace with Syscall
     | Push Data
+    | Peek Word8
     | Call BlockName
     | TailCall BlockName BlockName
     | ComputedCall

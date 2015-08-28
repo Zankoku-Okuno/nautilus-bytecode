@@ -9,6 +9,7 @@ module Language.Nautilus.Bytecode.Machine (
     , moveIP
     , halt
     , pushData
+    , peekData
     , popData
     -- * Inspection
     , infoIP
@@ -117,7 +118,11 @@ popData n = NBCI $ do
         frame' = frame { frame_stack = stack' }
     modify $ \m -> m { machine_frames = frame' }
     return it
--- peekData ix
+
+peekData :: Int -> NBCI Data
+peekData ix = NBCI $ do
+    stack <- gets (frame_stack . machine_frames)
+    return $ stack !! ix
 
 
 -- prepArg

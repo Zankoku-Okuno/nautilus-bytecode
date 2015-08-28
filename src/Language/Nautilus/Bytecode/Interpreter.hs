@@ -20,6 +20,7 @@ execute :: Instr -> NBCI ()
 execute Nop = return ()
 execute Halt = halt =<< fromNBC1 <$> popData 1
 execute (Push x) = pushData x
+execute (Peek ix) = peekData (fromIntegral ix) >>= pushData
 execute (JumpRel condition offset) = do
     doJump <- cond condition
     when doJump $ moveIP offset

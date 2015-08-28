@@ -21,9 +21,11 @@ main = do
 
 text = Map.fromList [
       ("foo", [ Push (U8 3)
+              , Push (U8 0)
+              , Peek 0
               , JumpRel EqZ 1
               , Nop
-              , Push (U8 0)
+              , Peek 1
               , Halt
               ])
     ]
